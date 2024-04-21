@@ -12,14 +12,19 @@ public class SpinningWheel : MonoBehaviour
     [SerializeField] float yBounds;
 
 
-    [SerializeField] GameObject[] itemIcons = new GameObject[5];
+    [SerializeField] GameObject[] itemObjs = new GameObject[5];
 
-    private void Start()
+    Sprite[] typeSprites;
+
+    public SlotMachine sM;
+
+    public void init()
     {
-        for(int i = 0; i < 5; i++)
+        typeSprites = sM.itemTypeSprites;
+        for (int i = 0; i < 5; i++)
         {
             GameObject Temp = Instantiate(slotItemPrefab, slotItemOwner);
-            itemIcons[i] = Temp;
+            itemObjs[i] = Temp;
         }
     }
 
@@ -50,12 +55,20 @@ public class SpinningWheel : MonoBehaviour
         UpdatePositions();
 
     }
+    public void UpdateVisuals(List<slotItemType> wheelItems)
+    {
+        for(int i = 0;i < itemObjs.Length;i++)
+        {
+            itemObjs[i].GetComponent<SpriteRenderer>().sprite = typeSprites[ (int)wheelItems[i]];
+        }
+
+    }
     void UpdatePositions()
     {
-        for (int i = 0; i < itemIcons.Length; i++)
+        for (int i = 0; i < itemObjs.Length; i++)
         {
-            itemIcons[i].transform.localPosition = new Vector3(0, yBounds* Mathf.Sin((currentValue + (i / 5f) ) * Mathf.PI * 2), -Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
-            itemIcons[i].transform.localScale = new Vector3(1, Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
+            itemObjs[i].transform.localPosition = new Vector3(0, yBounds* Mathf.Sin((currentValue + (i / 5f) ) * Mathf.PI * 2), -Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
+            itemObjs[i].transform.localScale = new Vector3(1, Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
         }
     }
 
