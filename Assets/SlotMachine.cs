@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum slotItemType { atk, def}
+public enum slotItemType { sword,shield,hp,coin}
 
 
 public class SlotMachine : MonoBehaviour
@@ -27,7 +27,7 @@ public class SlotMachine : MonoBehaviour
             items.Clear();
             for(int i = 0; i < 5; i++)
             {
-                items.Add((slotItemType)UnityEngine.Random.Range(0, 2));
+                items.Add((slotItemType)UnityEngine.Random.Range(0, 4));
             }
             spinningWheel.UpdateVisuals(items);
         }

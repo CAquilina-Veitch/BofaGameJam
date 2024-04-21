@@ -59,6 +59,7 @@ public class SpinningWheel : MonoBehaviour
     {
         for(int i = 0;i < itemObjs.Length;i++)
         {
+            Debug.Log((int)wheelItems[i]);
             itemObjs[i].GetComponent<SpriteRenderer>().sprite = typeSprites[ (int)wheelItems[i]];
         }
 
