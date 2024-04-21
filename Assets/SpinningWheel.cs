@@ -30,7 +30,7 @@ public class SpinningWheel : MonoBehaviour
 
     public void SpinWheel()
     {
-        goalValue = currentValue + Random.Range(20f, 40f);
+        goalValue = currentValue + Mathf.RoundToInt(Random.Range(20, 40));
     }
 
     private void FixedUpdate()
@@ -54,7 +54,7 @@ public class SpinningWheel : MonoBehaviour
     {
         for (int i = 0; i < itemIcons.Length; i++)
         {
-            itemIcons[i].transform.localPosition = new Vector3(0, yBounds* Mathf.Sin((currentValue + (i / 5f) ) * Mathf.PI * 2), Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
+            itemIcons[i].transform.localPosition = new Vector3(0, yBounds* Mathf.Sin((currentValue + (i / 5f) ) * Mathf.PI * 2), -Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
             itemIcons[i].transform.localScale = new Vector3(1, Mathf.Cos((currentValue + (i / 5f)) * Mathf.PI * 2));
         }
     }
