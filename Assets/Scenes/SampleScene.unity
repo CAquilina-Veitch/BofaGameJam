@@ -448,6 +448,11 @@ MonoBehaviour:
     isSpinning: 0
     currentNum: 0
     spinningWheel: {fileID: 759411411}
+  itemTypeSprites:
+  - {fileID: 21300000, guid: 82746aed941407d4d8d8c656a1eab4cb, type: 3}
+  - {fileID: 21300000, guid: cdaa21d092758d34babcdf9bce27d3de, type: 3}
+  - {fileID: 21300000, guid: e3f37e5edd2040f4a8391091cf1a64a2, type: 3}
+  - {fileID: 21300000, guid: eaad18d7603d66f4ea0d62d9930a23a3, type: 3}
 --- !u!4 &517520541
 Transform:
   m_ObjectHideFlags: 0
@@ -644,9 +649,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  typeSprites:
-  - {fileID: 21300000, guid: cdaa21d092758d34babcdf9bce27d3de, type: 3}
-  - {fileID: 21300000, guid: 82746aed941407d4d8d8c656a1eab4cb, type: 3}
+  sM: {fileID: 0}
   currentValue: 0
 --- !u!1 &1046318571
 GameObject:
@@ -703,9 +706,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  typeSprites:
-  - {fileID: 21300000, guid: cdaa21d092758d34babcdf9bce27d3de, type: 3}
-  - {fileID: 21300000, guid: 82746aed941407d4d8d8c656a1eab4cb, type: 3}
+  sM: {fileID: 0}
   currentValue: 0
 --- !u!1 &1063681661
 GameObject:
@@ -762,9 +763,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  typeSprites:
-  - {fileID: 21300000, guid: cdaa21d092758d34babcdf9bce27d3de, type: 3}
-  - {fileID: 21300000, guid: 82746aed941407d4d8d8c656a1eab4cb, type: 3}
+  sM: {fileID: 0}
   currentValue: 0
 --- !u!1 &1440919110
 GameObject:
