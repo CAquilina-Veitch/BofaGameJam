@@ -8,6 +8,25 @@ public enum slotItemType { sword,shield,hp,coin}
 
 public class SlotMachine : MonoBehaviour
 {
+    [SerializeField] int goalFace;
+    [SerializeField] Transform arrow;
+
+    [SerializeField] float currentFace;
+
+    [SerializeField] Transform[] sideFaces;
+    public void TurnMachine(int by)
+    {
+        goalFace += by;
+    }
+    public void UpdateVisualTurn()
+    {
+        for(int i = 0; i < sideFaces.Length; i++)
+        {
+            sideFaces[i].transform.localScale = new Vector3(1- Mathf.Abs(i-currentFace), 1, 1);
+            sideFaces[i].transform.localPosition = new Vector3((i-currentFace)*-4.85f, 0 , 0);
+        }
+    }
+
     public List<SlotWheel> wheels = new List<SlotWheel>(3);
     public Sprite[] itemTypeSprites;
 
@@ -111,6 +130,18 @@ public class SlotMachine : MonoBehaviour
             }
 
         }
+        if(currentFace!=goalFace)
+        {
+            currentFace = Mathf.Lerp(currentFace, goalFace, 0.1f);
+            if (MathF.Round(currentFace, 3)%1 == 0) 
+            { 
+                currentFace = Mathf.Round(currentFace); 
+            }
+
+            UpdateVisualTurn();
+        }
+
+
         UpdateArmPosition();
     }
     [SerializeField] Transform armSquare;
@@ -148,6 +179,11 @@ public class SlotMachine : MonoBehaviour
                 {
                     PullArm();
 
+                }
+                else if(hit.collider.tag == "Arrow")
+                {
+                    int dir= hit.collider.transform.position.x > 0 ? -1 : 1;
+                    TurnMachine(dir);
                 }
 
             }
