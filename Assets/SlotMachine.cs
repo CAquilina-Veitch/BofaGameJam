@@ -10,6 +10,7 @@ public class SlotMachine : MonoBehaviour
 {
     [SerializeField] int goalFace;
     [SerializeField] Transform arrow;
+    [SerializeField] SpriteRenderer arrowTriangle;
 
     [SerializeField] float currentFace;
 
@@ -24,6 +25,8 @@ public class SlotMachine : MonoBehaviour
         {
             sideFaces[i].transform.localScale = new Vector3(1- Mathf.Abs(i-currentFace), 1, 1);
             sideFaces[i].transform.localPosition = new Vector3((i-currentFace)*-4.85f, 0 , 0);
+            arrow.transform.localPosition = new Vector3( -5.79f * 2 * ((0.5f - currentFace)),0);
+            arrowTriangle.flipY = currentFace > 0.5f;
         }
     }
 
@@ -66,6 +69,8 @@ public class SlotMachine : MonoBehaviour
         {
             w.RandomItems();
         }
+        UpdateVisualTurn();
+
     }
 
     public void checkSpinFinish()
@@ -132,16 +137,16 @@ public class SlotMachine : MonoBehaviour
         }
         if(currentFace!=goalFace)
         {
-            currentFace = Mathf.Lerp(currentFace, goalFace, 0.1f);
+            currentFace = Mathf.Lerp(currentFace, goalFace, 0.2f);
             if (MathF.Round(currentFace, 3)%1 == 0) 
             { 
                 currentFace = Mathf.Round(currentFace); 
             }
 
-            UpdateVisualTurn();
+            
         }
 
-
+        UpdateVisualTurn();
         UpdateArmPosition();
     }
     [SerializeField] Transform armSquare;
@@ -153,9 +158,9 @@ public class SlotMachine : MonoBehaviour
 
     void UpdateArmPosition()
     {
-        armBall.localPosition = new Vector3(0,2.5f * armValue);
-        armSquare.localPosition = new Vector3(0, 1.25f * armValue);
-        armSquare.localScale = new Vector3(0.3f, armValue*1.95f, 1) ;
+        armBall.localPosition = new Vector3(-0.05f, 2.5f * armValue);
+        armSquare.localPosition = new Vector3(0, 1.3f * armValue);
+        armSquare.localScale = new Vector3(1, armValue* 2.6f, 1) ;
     }
 
 
@@ -182,6 +187,7 @@ public class SlotMachine : MonoBehaviour
                 }
                 else if(hit.collider.tag == "Arrow")
                 {
+                    Debug.Log("AAAAAAAAAAG");
                     int dir= hit.collider.transform.position.x > 0 ? -1 : 1;
                     TurnMachine(dir);
                 }
