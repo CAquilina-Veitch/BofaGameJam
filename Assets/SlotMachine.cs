@@ -15,7 +15,6 @@ public class SlotMachine : MonoBehaviour
     public class SlotWheel
     {
         public List<slotItemType> items = new List<slotItemType>();
-        public bool isSpinning = false;
 
         public float currentNum;
 
@@ -49,11 +48,29 @@ public class SlotMachine : MonoBehaviour
             w.RandomItems();
         }
     }
+
+    public void checkSpinFinish()
+    {
+        for (int i = 0; i < wheels.Count; i++) 
+        {
+            if (wheels[i].spinningWheel.isSpinning)
+            {
+                return;
+            }
+        }
+        //spin is finished, get values
+
+        Debug.LogError("SPUN");
+        StopArm();
+
+
+    }
+
+
     public void SpinWheels()
     {
         for(int i = 0; i < wheels.Count; i++)
         {
-            wheels[i].isSpinning = true;
             wheels[i].spinningWheel.SpinWheel();
 
         }
@@ -71,6 +88,11 @@ public class SlotMachine : MonoBehaviour
 
 
         SpinWheels();
+    }
+    public void StopArm()
+    {
+        armGoal = 1;
+        armValue = 1;
     }
 
     private void FixedUpdate()

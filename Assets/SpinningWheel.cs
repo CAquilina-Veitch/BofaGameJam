@@ -18,6 +18,8 @@ public class SpinningWheel : MonoBehaviour
 
     public SlotMachine sM;
 
+
+    public bool isSpinning;
     public void init()
     {
         typeSprites = sM.itemTypeSprites;
@@ -36,7 +38,9 @@ public class SpinningWheel : MonoBehaviour
     public void SpinWheel()
     {
         goalValue = Mathf.RoundToInt(goalValue +Random.Range(20, 40));
+        isSpinning = true;
     }
+
 
     private void FixedUpdate()
     {
@@ -46,13 +50,15 @@ public class SpinningWheel : MonoBehaviour
             if (Mathf.Abs(currentValue - goalValue) < 0.01f)
             {
                 currentValue = goalValue;
+                isSpinning = false;
+                sM.checkSpinFinish();
             }
-
+            UpdatePositions();
 
 
 
         }
-        UpdatePositions();
+
 
     }
     public void UpdateVisuals(List<slotItemType> wheelItems)
