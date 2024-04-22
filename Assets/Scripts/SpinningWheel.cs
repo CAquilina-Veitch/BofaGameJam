@@ -49,9 +49,9 @@ public class SpinningWheel : MonoBehaviour
     {
         if (currentValue < goalValue)
         {
-            if (Mathf.Abs(goalValue - currentValue) > 0.01f)
+            if (Mathf.Abs(goalValue - currentValue) > 0.1f)
             {
-                currentValue = Mathf.Lerp(currentValue, goalValue, 0.01f);
+                currentValue = Mathf.Lerp(currentValue, goalValue, 0.06f);
             }
             else
             {

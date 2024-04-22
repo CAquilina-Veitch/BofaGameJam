@@ -55,6 +55,7 @@ public class SlotMachine : MonoBehaviour
 
         public SpinningWheel spinningWheel;
 
+        public int ID;
 
         public void RandomItems()
         {
@@ -76,14 +77,15 @@ public class SlotMachine : MonoBehaviour
 
     private void Start()
     {
-        foreach(SlotWheel wheel in wheels)
+        foreach (SlotWheel wheel in wheels)
         {
             wheel.spinningWheel.sM = this;
             wheel.spinningWheel.init();
+            wheel.RandomItems();
         }
-        foreach (SlotWheel w in wheels)
+        for (int i = 0; i < wheels.Count; i++)
         {
-            w.RandomItems();
+            wheels[i].ID = i;
         }
         sideSpinningWheel.init();
         UpdateVisualTurn();
