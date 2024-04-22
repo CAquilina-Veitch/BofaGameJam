@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Arm
   - Arrow
+  - SocketableItem
   layers:
   - Default
   - TransparentFX

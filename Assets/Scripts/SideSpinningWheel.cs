@@ -9,11 +9,23 @@ public class SideSpinningWheel : MonoBehaviour
 
     [SerializeField] GameObject itemSocketPrefab;
 
-    float r = 4;
+
+
+
+    float r = 1.76f;
     float _itemSizeMult = 1;
 
+    public bool OnScreen;
 
-    /*[SerializeField]*/ GameObject[] itemObjs = new GameObject[5];
+    /*[SerializeField]*/ GameObject[] sockets = new GameObject[5];
+
+    [SerializeField] SideFaceMenu menu;
+
+    List<SocketableSlotItem> attachedSocketableSlotItems = new List<SocketableSlotItem>();
+
+
+
+
 
     Sprite[] typeSprites;
 
@@ -24,7 +36,7 @@ public class SideSpinningWheel : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             GameObject Temp = Instantiate(itemSocketPrefab, transform);
-            itemObjs[i] = Temp;
+            sockets[i] = Temp;
         }
         _itemSizeMult = sM.itemSizeMult;
         UpdatePositions();
@@ -34,18 +46,18 @@ public class SideSpinningWheel : MonoBehaviour
 
     void UpdatePositions()
     {
-        for (int i = 0; i < itemObjs.Length; i++)
+        for (int i = 0; i < sockets.Length; i++)
         {
-            itemObjs[i].transform.localPosition = new Vector3(-r * Mathf.Sin((currentValue / 5f + (i / 5f)) * Mathf.PI * 2), r*-Mathf.Cos((currentValue / 5f + (i / 5f)) * Mathf.PI * 2), 0);
+            sockets[i].transform.localPosition = new Vector3(-r * Mathf.Sin((currentValue / 5f + (i / 5f)) * Mathf.PI * 2), r*-Mathf.Cos((currentValue / 5f + (i / 5f)) * Mathf.PI * 2), 0);
             //itemObjs[i].transform.localScale = new Vector3(_itemSizeMult, _itemSizeMult * Mathf.Cos((currentValue / 5 + (i / 5f)) * Mathf.PI * 2));
         }
     }
 
     public void UpdateVisuals(List<slotItemType> wheelItems)
     {
-        for (int i = 0; i < itemObjs.Length; i++)
+        for (int i = 0; i < sockets.Length; i++)
         {
-            itemObjs[i].GetComponent<SpriteRenderer>().sprite = typeSprites[(int)wheelItems[i]];
+            sockets[i].GetComponent<SpriteRenderer>().sprite = typeSprites[(int)wheelItems[i]];
         }
 
     }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum slotItemType { sword,shield,hp,coin}
+public enum slotItemType { sword, shield, hp, coin}
 
 
 public class SlotMachine : MonoBehaviour
@@ -22,13 +22,14 @@ public class SlotMachine : MonoBehaviour
     public void TurnMachine(int by)
     {
         goalFace += by;
+        sideSpinningWheel.OnScreen = goalFace == 1;
     }
     public void UpdateVisualTurn()
     {
         for(int i = 0; i < sideFaces.Length; i++)
         {
             sideFaces[i].transform.localScale = new Vector3(1- Mathf.Abs(i-currentFace), 1, 1);
-            sideFaces[i].transform.localPosition = new Vector3((i-currentFace)*-4.85f, 0 , 0);
+            sideFaces[i].transform.localPosition = new Vector3((i - currentFace) * -4.85f, 0, 0);
             arrow.transform.localPosition = new Vector3( -5.79f * 2 * ((0.5f - currentFace)),0);
             arrowTriangle.flipY = currentFace > 0.5f;
         }
@@ -132,7 +133,7 @@ public class SlotMachine : MonoBehaviour
             { 
                 armGoal = 1; 
             }
-            if(armGoal==0)
+            if (armGoal == 0)
             {
                 armValue = Mathf.Lerp(armValue, armGoal, 0.3f);
             }
@@ -143,7 +144,7 @@ public class SlotMachine : MonoBehaviour
             }
 
         }
-        if(currentFace!=goalFace)
+        if (currentFace != goalFace)
         {
             currentFace = Mathf.Lerp(currentFace, goalFace, 0.2f);
             if (MathF.Round(currentFace, 3) % 1 == 0)
@@ -202,14 +203,25 @@ public class SlotMachine : MonoBehaviour
                 }
                 else if(hit.collider.tag == "Arrow")
                 {
-                    int dir= hit.collider.transform.position.x > 0 ? -1 : 1;
+                    int dir = hit.collider.transform.position.x > 0 ? -1 : 1;
                     TurnMachine(dir);
                 }
+                else if(hit.collider.tag == "SocketableItem")
+                {
+                    attached = hit.collider.GetComponent<SocketableSlotItem>();
+                    attached.Attach(true);
 
+
+                }
             }
+        }
+        else if(Input.GetKeyUp(KeyCode.Mouse0))
+        {
+
         }
         
     }
+    SocketableSlotItem attached;
 
 
 
