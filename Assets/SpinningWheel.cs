@@ -47,23 +47,22 @@ public class SpinningWheel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(currentValue < goalValue)
+        if (currentValue < goalValue)
         {
-            currentValue = Mathf.Lerp(currentValue, goalValue, 0.01f);
-            if (Mathf.Abs(currentValue - goalValue) < 0.01f)
+            if (Mathf.Abs(goalValue - currentValue) > 0.01f)
+            {
+                currentValue = Mathf.Lerp(currentValue, goalValue, 0.01f);
+            }
+            else
             {
                 currentValue = goalValue;
                 isSpinning = false;
-                sM.checkSpinFinish();
+                sM.CheckSpinFinish();
             }
             UpdatePositions();
-
-
-
         }
-
-
     }
+
     public void UpdateVisuals(List<slotItemType> wheelItems)
     {
         for(int i = 0;i < itemObjs.Length;i++)
@@ -80,10 +79,4 @@ public class SpinningWheel : MonoBehaviour
             itemObjs[i].transform.localScale = new Vector3(_itemSizeMult, _itemSizeMult* Mathf.Cos((currentValue/5 + (i / 5f)) * Mathf.PI * 2));
         }
     }
-
-    private void Update()
-    {
-
-    }
-
 }

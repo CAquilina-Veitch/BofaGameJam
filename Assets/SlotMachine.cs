@@ -15,6 +15,10 @@ public class SlotMachine : MonoBehaviour
     [SerializeField] float currentFace;
 
     [SerializeField] Transform[] sideFaces;
+
+
+    [SerializeField] SideSpinningWheel sideSpinningWheel;
+
     public void TurnMachine(int by)
     {
         goalFace += by;
@@ -69,11 +73,12 @@ public class SlotMachine : MonoBehaviour
         {
             w.RandomItems();
         }
+        sideSpinningWheel.init();
         UpdateVisualTurn();
 
     }
 
-    public void checkSpinFinish()
+    public void CheckSpinFinish()
     {
         for (int i = 0; i < wheels.Count; i++) 
         {
@@ -121,9 +126,12 @@ public class SlotMachine : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(!(((armValue==armGoal)&&(armValue==1))))
+        if (!(((armValue == armGoal) && (armValue == 1))))
         {
-            if(MathF.Round(armValue,3)==0) { armGoal = 1; }
+            if (MathF.Round(armValue, 3) == 0) 
+            { 
+                armGoal = 1; 
+            }
             if(armGoal==0)
             {
                 armValue = Mathf.Lerp(armValue, armGoal, 0.3f);
@@ -138,7 +146,7 @@ public class SlotMachine : MonoBehaviour
         if(currentFace!=goalFace)
         {
             currentFace = Mathf.Lerp(currentFace, goalFace, 0.2f);
-            if (MathF.Round(currentFace, 3)%1 == 0) 
+            if (MathF.Round(currentFace, 3) % 1 == 0)
             { 
                 currentFace = Mathf.Round(currentFace); 
             }
@@ -155,11 +163,18 @@ public class SlotMachine : MonoBehaviour
     public float itemSizeMult = 1.5f;
 
 
+    private void Awake()
+    {
+        armBallStart = armBall.localPosition;
+        armSquareStart = armSquare.localPosition;
+    }
+    Vector3 armBallStart;
+    Vector3 armSquareStart;
 
     void UpdateArmPosition()
     {
-        armBall.localPosition = new Vector3(-0.05f, 2.5f * armValue);
-        armSquare.localPosition = new Vector3(0, 1.3f * armValue);
+        armBall.localPosition = new Vector3(armBallStart.x, armBallStart.y * armValue);
+        armSquare.localPosition = new Vector3(armSquareStart.x, armSquareStart.y * armValue);
         armSquare.localScale = new Vector3(1, armValue* 2.6f, 1) ;
     }
 
@@ -187,7 +202,6 @@ public class SlotMachine : MonoBehaviour
                 }
                 else if(hit.collider.tag == "Arrow")
                 {
-                    Debug.Log("AAAAAAAAAAG");
                     int dir= hit.collider.transform.position.x > 0 ? -1 : 1;
                     TurnMachine(dir);
                 }
