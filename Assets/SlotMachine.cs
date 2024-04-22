@@ -44,6 +44,10 @@ public class SlotMachine : MonoBehaviour
             wheel.spinningWheel.sM = this;
             wheel.spinningWheel.init();
         }
+        foreach (SlotWheel w in wheels)
+        {
+            w.RandomItems();
+        }
     }
     public void SpinWheels()
     {
@@ -58,6 +62,46 @@ public class SlotMachine : MonoBehaviour
 
         }
     }
+
+    float armValue =1;
+    float armGoal =1;
+    void PullArm()
+    {
+        armGoal = 0;
+
+
+        SpinWheels();
+    }
+
+    private void FixedUpdate()
+    {
+        if(!(((armValue==armGoal)&&(armValue==1))))
+        {
+            if(MathF.Round(armValue,3)==0) { armGoal = 1; }
+            if(armGoal==0)
+            {
+                armValue = Mathf.Lerp(armValue, armGoal, 0.3f);
+            }
+            else
+            {
+                armValue = Mathf.Lerp(armValue, armGoal, Time.deltaTime*3);
+
+            }
+
+        }
+        UpdateArmPosition();
+    }
+    [SerializeField] Transform armSquare;
+    [SerializeField] Transform armBall;
+    void UpdateArmPosition()
+    {
+        armBall.localPosition = new Vector3(0,2.5f * armValue);
+        armSquare.localPosition = new Vector3(0, 1.25f * armValue);
+        armSquare.localScale = new Vector3(0.3f, armValue*1.95f, 1) ;
+    }
+
+
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -67,6 +111,21 @@ public class SlotMachine : MonoBehaviour
                 w.RandomItems();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag == "Arm")
+                {
+                    PullArm();
+
+                }
+
+            }
+        }
+        
     }
 
 

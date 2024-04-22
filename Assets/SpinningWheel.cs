@@ -75,10 +75,7 @@ public class SpinningWheel : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SpinWheel();
-        }
+
     }
 
 }
