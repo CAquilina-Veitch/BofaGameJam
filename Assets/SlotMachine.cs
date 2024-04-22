@@ -115,6 +115,11 @@ public class SlotMachine : MonoBehaviour
     }
     [SerializeField] Transform armSquare;
     [SerializeField] Transform armBall;
+
+    public float itemSizeMult = 1.5f;
+
+
+
     void UpdateArmPosition()
     {
         armBall.localPosition = new Vector3(0,2.5f * armValue);
