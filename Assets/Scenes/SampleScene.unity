@@ -572,6 +572,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: eaad18d7603d66f4ea0d62d9930a23a3, type: 3}
   armSquare: {fileID: 1351738730}
   armBall: {fileID: 57178583}
+  itemSizeMult: 1.5
 --- !u!4 &517520541
 Transform:
   m_ObjectHideFlags: 0
@@ -1188,7 +1189,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 1518466d207a10b448b9d8c656120792, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 372546dba4d635d4e89f40d589f32d4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
