@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   socketableItemPrefab: {fileID: 1379609309340336197, guid: 3de4dbe12e53104428248a36a7b07fa5, type: 3}
+  sideFace: {fileID: 1337684647}
   sideWheel: {fileID: 506558501}
 --- !u!1 &411362904
 GameObject:
@@ -585,7 +586,7 @@ GameObject:
   - component: {fileID: 506558501}
   m_Layer: 0
   m_Name: Side Spinning Wheel
-  m_TagString: Untagged
+  m_TagString: SideSpinningWheel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -661,6 +662,7 @@ MonoBehaviour:
   - {fileID: 1417328005}
   - {fileID: 1337684647}
   sideSpinningWheel: {fileID: 506558501}
+  sideFaceMenu: {fileID: 313040416}
   wheels:
   - items: 0000000001000000000000000100000000000000
     currentNum: 0

@@ -8,6 +8,7 @@ public class SideFaceMenu : MonoBehaviour
     List<SocketableSlotItem> looseIcons = new List<SocketableSlotItem>();
 
     [SerializeField] GameObject socketableItemPrefab;
+    [SerializeField] Transform sideFace;
 
     [SerializeField] SideSpinningWheel sideWheel;
 
@@ -15,7 +16,7 @@ public class SideFaceMenu : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            GameObject Temp = Instantiate(socketableItemPrefab, transform);
+            GameObject Temp = Instantiate(socketableItemPrefab, sideFace);
             SocketableSlotItem tempItem = Temp.GetComponent<SocketableSlotItem>();
             tempItem.itemType = (slotItemType) Random.Range(0, 4);
             tempItem.init();
@@ -27,4 +28,14 @@ public class SideFaceMenu : MonoBehaviour
     {
         GenerateRandomIcons(6);
     }
+
+    public void EnablePhysics(bool enable)
+    {
+        foreach(SocketableSlotItem item in looseIcons)
+        {
+            item.Sim(enable);
+        }
+    }
+
+
 }

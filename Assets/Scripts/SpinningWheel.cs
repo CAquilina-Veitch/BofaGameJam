@@ -65,7 +65,7 @@ public class SpinningWheel : MonoBehaviour
 
     public void UpdateVisuals(List<slotItemType> wheelItems)
     {
-        for(int i = 0;i < itemObjs.Length;i++)
+        for(int i = 0; i < itemObjs.Length;i++)
         {
             itemObjs[i].GetComponent<SpriteRenderer>().sprite = typeSprites[ (int)wheelItems[i]];
         }

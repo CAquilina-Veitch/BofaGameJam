@@ -21,10 +21,10 @@ public class SideSpinningWheel : MonoBehaviour
 
     [SerializeField] SideFaceMenu menu;
 
-    List<SocketableSlotItem> attachedSocketableSlotItems = new List<SocketableSlotItem>();
 
+    SocketableSlotItem[] attachedItems = new SocketableSlotItem[5];
 
-
+    
 
 
     Sprite[] typeSprites;
@@ -37,6 +37,7 @@ public class SideSpinningWheel : MonoBehaviour
         {
             GameObject Temp = Instantiate(itemSocketPrefab, transform);
             sockets[i] = Temp;
+            Temp.name = $"{i}";
         }
         _itemSizeMult = sM.itemSizeMult;
         UpdatePositions();
@@ -62,7 +63,26 @@ public class SideSpinningWheel : MonoBehaviour
 
     }
 
-
+    public void ChangeValue(int of, SocketableSlotItem item)
+    {
+        attachedItems[of] = item;
+    }
+    public List<slotItemType> GetTypeList()
+    {
+        List<slotItemType> typeList = new List<slotItemType>();
+        for(int i = 0; i < 5; i++)
+        {
+            if (attachedItems[i] != null)
+            {
+                typeList.Add(attachedItems[i].itemType);
+            }
+            else
+            {
+                typeList.Add(slotItemType.coin);
+            }
+        }
+        return typeList;
+    }
 
 
 }

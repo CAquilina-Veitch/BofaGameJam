@@ -19,10 +19,16 @@ public class SlotMachine : MonoBehaviour
 
     [SerializeField] SideSpinningWheel sideSpinningWheel;
 
+    [SerializeField] SideFaceMenu sideFaceMenu;
+
     public void TurnMachine(int by)
     {
         goalFace += by;
         sideSpinningWheel.OnScreen = goalFace == 1;
+        foreach(SlotWheel wheel in wheels )
+        {
+            wheel.SetItems(sideSpinningWheel.GetTypeList());
+        }
     }
     public void UpdateVisualTurn()
     {
@@ -33,6 +39,8 @@ public class SlotMachine : MonoBehaviour
             arrow.transform.localPosition = new Vector3( -5.79f * 2 * ((0.5f - currentFace)),0);
             arrowTriangle.flipY = currentFace > 0.5f;
         }
+        sideFaceMenu.transform.localScale = new Vector3(currentFace, 1, 1);
+        sideFaceMenu.EnablePhysics(currentFace == 1);
     }
 
     public List<SlotWheel> wheels = new List<SlotWheel>(3);
@@ -58,7 +66,10 @@ public class SlotMachine : MonoBehaviour
             spinningWheel.UpdateVisuals(items);
         }
 
-
+        public void SetItems(List<slotItemType> to)
+        {
+            spinningWheel.UpdateVisuals(to);
+        }
 
 
     }
@@ -104,10 +115,6 @@ public class SlotMachine : MonoBehaviour
             wheels[i].spinningWheel.SpinWheel();
 
         }
-        foreach(SlotWheel wheel in wheels)
-        {
-
-        }
     }
 
     float armValue =1;
@@ -125,39 +132,7 @@ public class SlotMachine : MonoBehaviour
         armValue = 1;
     }
 
-    private void FixedUpdate()
-    {
-        if (!(((armValue == armGoal) && (armValue == 1))))
-        {
-            if (MathF.Round(armValue, 3) == 0) 
-            { 
-                armGoal = 1; 
-            }
-            if (armGoal == 0)
-            {
-                armValue = Mathf.Lerp(armValue, armGoal, 0.3f);
-            }
-            else
-            {
-                armValue = Mathf.Lerp(armValue, armGoal, Time.deltaTime*3);
 
-            }
-
-        }
-        if (currentFace != goalFace)
-        {
-            currentFace = Mathf.Lerp(currentFace, goalFace, 0.2f);
-            if (MathF.Round(currentFace, 3) % 1 == 0)
-            { 
-                currentFace = Mathf.Round(currentFace); 
-            }
-
-            
-        }
-
-        UpdateVisualTurn();
-        UpdateArmPosition();
-    }
     [SerializeField] Transform armSquare;
     [SerializeField] Transform armBall;
 
@@ -179,7 +154,47 @@ public class SlotMachine : MonoBehaviour
         armSquare.localScale = new Vector3(1, armValue* 2.6f, 1) ;
     }
 
+    private void FixedUpdate()
+    {
+        if (!(((armValue == armGoal) && (armValue == 1))))
+        {
+            if (MathF.Round(armValue, 3) == 0)
+            {
+                armGoal = 1;
+            }
+            if (armGoal == 0)
+            {
+                armValue = Mathf.Lerp(armValue, armGoal, 0.3f);
+            }
+            else
+            {
+                armValue = Mathf.Lerp(armValue, armGoal, Time.deltaTime * 3);
 
+            }
+
+        }
+        if (currentFace != goalFace)
+        {
+            currentFace = Mathf.Lerp(currentFace, goalFace, 0.2f);
+            if (MathF.Round(currentFace, 3) % 1 == 0)
+            {
+                currentFace = Mathf.Round(currentFace);
+            }
+
+
+        }
+
+        UpdateVisualTurn();
+        UpdateArmPosition();
+
+        if (attached != null)
+        {
+            Vector3 tempMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            tempMousePos.z = 0;
+            attached.transform.position = tempMousePos;
+        }
+
+    }
 
     private void Update()
     {
@@ -209,15 +224,25 @@ public class SlotMachine : MonoBehaviour
                 else if(hit.collider.tag == "SocketableItem")
                 {
                     attached = hit.collider.GetComponent<SocketableSlotItem>();
-                    attached.Attach(true);
+                    attached.AttachMouse(true);
 
 
                 }
             }
         }
-        else if(Input.GetKeyUp(KeyCode.Mouse0))
+        else if(Input.GetKeyUp(KeyCode.Mouse0)&&attached!=null)
         {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag == "Socket")
+                {
+                    attached.Stick(hit.collider.transform);
+                }
+            }
+            attached.AttachMouse(false);
+            attached = null;
         }
         
     }
