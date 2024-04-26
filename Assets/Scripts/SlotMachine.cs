@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public enum slotItemType { sword, shield, hp, coin}
 
@@ -51,8 +53,6 @@ public class SlotMachine : MonoBehaviour
     {
         public List<slotItemType> items = new List<slotItemType>();
 
-        public float currentNum;
-
         public SpinningWheel spinningWheel;
 
         public int ID;
@@ -63,6 +63,7 @@ public class SlotMachine : MonoBehaviour
             for(int i = 0; i < 5; i++)
             {
                 items.Add((slotItemType)UnityEngine.Random.Range(0, 4));
+                //items.Add((slotItemType)((float)i%4));
             }
             spinningWheel.UpdateVisuals(items);
         }
@@ -70,6 +71,14 @@ public class SlotMachine : MonoBehaviour
         public void SetItems(List<slotItemType> to)
         {
             spinningWheel.UpdateVisuals(to);
+        }
+        public slotItemType WinnerItem()
+        {
+
+            float t = (5-spinningWheel.currentValue % items.Count);
+            t = t == 5 ? 0 : t;
+            Debug.Log($"5 - {spinningWheel.currentValue} % {items.Count} = {t} ::: ");
+            return items[(int)t];
         }
 
 
@@ -103,12 +112,47 @@ public class SlotMachine : MonoBehaviour
         }
         //spin is finished, get values
 
+        GenerateOutcome(wheels);
+
+
         Debug.LogError("SPUN");
         StopArm();
 
 
     }
 
+    public void GenerateOutcome(List<SlotWheel> SWs)
+    {
+        Outcome.Clear();
+        foreach(SlotWheel w in SWs)
+        {
+            slotItemType winningType = w.WinnerItem();
+            bool existed = false;
+            foreach (Move m in Outcome)
+            {
+                if(m.type == winningType&&!existed)
+                {
+                    existed = true;
+                    m.multiplier += 2;
+                }
+            }
+            if (!existed)
+            {
+                Move temp = new Move(winningType,1f);
+                Outcome.Add(temp);
+            }
+        }
+        string result = $": ";
+        foreach(Move o in Outcome)
+        {
+            result += $"{o.type}{o.multiplier}, ";
+        }
+        resultsCanvasTemp.text = result;
+    }
+
+
+    public List<Move> Outcome = new List<Move>();
+    public TextMeshProUGUI resultsCanvasTemp;
 
     public void SpinWheels()
     {

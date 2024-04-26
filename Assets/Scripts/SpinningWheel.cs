@@ -41,6 +41,7 @@ public class SpinningWheel : MonoBehaviour
     public void SpinWheel()
     {
         goalValue = Mathf.RoundToInt(goalValue +Random.Range(20, 40));
+        //goalValue = Mathf.RoundToInt(goalValue + 1);
         isSpinning = true;
     }
 
@@ -58,9 +59,10 @@ public class SpinningWheel : MonoBehaviour
                 currentValue = goalValue;
                 isSpinning = false;
                 sM.CheckSpinFinish();
+                //UpdatePositions();
             }
-            UpdatePositions();
         }
+        UpdatePositions();
     }
 
     public void UpdateVisuals(List<slotItemType> wheelItems)
