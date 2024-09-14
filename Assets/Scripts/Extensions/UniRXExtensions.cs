@@ -13,11 +13,7 @@ namespace Scripts.Extensions
             serialDisposable.Disposable = disposable;
             return disposable;
         }
-        public static IDisposable Subscribe(this IObservable<long> observable, Action method)
-        {
-            // Convert method name into Action and pass to Subscribe
-            return observable.Subscribe(_ => method());
-        }
+        public static IDisposable Subscribe(this IObservable<long> observable, Action method) => observable.Subscribe(_ => method());
 
     }
 }

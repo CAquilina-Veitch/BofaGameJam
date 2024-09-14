@@ -6,28 +6,14 @@ using UnityEngine;
 
 namespace Scripts.Storage.Keybinds
 {
-    [Serializable]
-    public enum InteractionType
-    {
-        None = 0,
-        Dialogue = 1
-    }
-    [Serializable]
-    public struct Keybinding
-    {
-        public InteractionType Type;
-        public KeyCode Key;
-    }
 
-    [CreateAssetMenu(fileName = "KeybindingData", menuName = "Storage/KeybindingData", order = 1)]
-    public class KeybindingData : ScriptableObject
+    [CreateAssetMenu(fileName = "QuestsData", menuName = "Storage/QuestsData", order = 1)]
+    public class QuestsData : ScriptableObject
     {
-        public List<Keybinding> keybindings;
+        /*public List<Keybinding> keybindings;
 
         public Keybinding? GetKeybind( InteractionType type)
         {
-            if(type is InteractionType.None) return null;
-
             if (!keybindings.Any(x => x.Type == type)) 
             { 
                 Debug.LogError($"Keybinding of type {type} has not been defined."); 
@@ -35,6 +21,6 @@ namespace Scripts.Storage.Keybinds
             }
 
             return keybindings.FirstOrDefault(x => x.Type == type);
-        }
+        }*/
     }
 }
