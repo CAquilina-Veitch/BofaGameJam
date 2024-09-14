@@ -6,9 +6,30 @@ using UnityEngine;
 
 namespace Scripts.Storage.Keybinds
 {
+    public enum QuestLineID
+    {
+        None = 0,
+        Tutorial = 100,
+        Tutorial2 = 101,
+        Test = 200
+    }
+
+    [Serializable]
+    public struct Quest
+    {
+        public QuestLineID ID;
+        public List<Quest> Quests;
+    }
+    
+    [Serializable]
+    public struct Questline
+    {
+        public QuestLineID ID;
+        public List<Quest> Quests;
+    }
 
     [CreateAssetMenu(fileName = "QuestsData", menuName = "Storage/QuestsData", order = 1)]
-    public class QuestsData : ScriptableObject
+    public class QuestlineData : ScriptableObject
     {
         /*public List<Keybinding> keybindings;
 

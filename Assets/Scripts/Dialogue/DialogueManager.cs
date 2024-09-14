@@ -20,8 +20,8 @@ public class DialogueManager : MonoBehaviour
         return speakers.FirstOrDefault(x => x.SpeakerName == speakerName);
     }
 
-    //how should i store conversations, based off who its talking too? and an enum that defines what the topic/purpose of the conversation is?
-    // in which situation i need to define what a quest is 
+    //how should I store conversations, based off who its talking too? and an enum that defines what the topic/purpose of the conversation is?
+    // in which situation I need to define what a quest is 
     // maybe just the events and affects and requirements that happen in a conversation so conversation can just have text and  links to quest
 
     public static DialogueManager Instance { get; private set; }
