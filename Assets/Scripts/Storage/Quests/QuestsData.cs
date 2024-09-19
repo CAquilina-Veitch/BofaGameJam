@@ -1,3 +1,4 @@
+using Scripts.Quests;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace Scripts.Storage.Keybinds
     }
 
     [Serializable]
-    public struct Quest
+    public struct QuestStruct
     {
         public QuestLineID ID;
         public List<Quest> Quests;
@@ -31,17 +32,6 @@ namespace Scripts.Storage.Keybinds
     [CreateAssetMenu(fileName = "QuestsData", menuName = "Storage/QuestsData", order = 1)]
     public class QuestlineData : ScriptableObject
     {
-        /*public List<Keybinding> keybindings;
 
-        public Keybinding? GetKeybind( InteractionType type)
-        {
-            if (!keybindings.Any(x => x.Type == type)) 
-            { 
-                Debug.LogError($"Keybinding of type {type} has not been defined."); 
-                return null; 
-            }
-
-            return keybindings.FirstOrDefault(x => x.Type == type);
-        }*/
     }
 }

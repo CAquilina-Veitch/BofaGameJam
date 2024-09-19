@@ -11,4 +11,6 @@ public class StorageBindings : MonoBehaviour
     [SerializeField] private KeybindingData keybindingData;
     public static KeybindingData KeybindingData => Instance?.keybindingData;
 
+    
+
 }
